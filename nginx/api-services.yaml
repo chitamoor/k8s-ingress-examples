@@ -1,0 +1,54 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: api-1-echo-app
+  labels:
+    app: api-1-echo-app
+spec:
+  containers:
+    - name: api-1-echo-app
+      image: hashicorp/http-echo
+      args:
+        - "-text=API One Invoked!"
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-1-echo-service
+spec:
+  selector:
+    app: api-1-echo-app
+  ports:
+  - port: 6500 # Default port for image
+    targetPort: 5678 # Default port for image
+
+---
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: api-2-echo-app
+  labels:
+    app: api-2-echo-app
+spec:
+  containers:
+    - name: api-2-echo-app
+      image: hashicorp/http-echo
+      args:
+        - "-text=API Two Invoked!"
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-2-echo-service
+spec:
+  selector:
+    app: api-2-echo-app
+  ports:
+  - port: 7500 # Default port for image
+    targetPort: 5678 # Default port for image
+

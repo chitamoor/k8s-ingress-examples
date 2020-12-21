@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-demo
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: api-1-service.svc.com
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: api-1-echo-service
+            servicePort: 6500
+
+  - host: api-2-service.svc.com
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: api-2-echo-service
+            servicePort: 7500
+
